@@ -1,17 +1,16 @@
 from random import randrange
-from typing import List
 import datetime
 import mysql.connector
 from tkinter import *
 import tkinter.font as font
 import tkinter.messagebox
-from PIL import Image, ImageTk
+
 
 config = {
   'user': 'root',
   'password': 'root',
   'host': 'localhost',
-  'database': 'list_etudiant'
+  'database': 'list_etudiants'
 }
 
 link = mysql.connector.connect(**config)
@@ -80,12 +79,12 @@ def saveGroupes(list,projetId,rest):
         label.destroy()
 
     lastGroupId=1
-    for i in list:
+    for i in range(len(list)):
         
-        for e in range(len(i)):
+        for e in range(len(list[i])):
             
-            cursor.execute(insert_query,(i[e].id,lastGroupId,projetId))
-            Label(fenetreResultat,text=i[e].prenom,padx="10").grid( row=i,column=e)
+            cursor.execute(insert_query,(list[i][e].id,lastGroupId,projetId))
+            Label(fenetreResultat,text=list[i][e].prenom,padx="10").grid( row=i,column=e)
             
     if len(rest)>0:
         for e in range(len(rest)):
